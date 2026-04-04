@@ -25,15 +25,15 @@ hippo=HIPPODROME
 ### Exemples d'appel
 
 ```http
-GET https://open-pmu-api.vercel.app/api/arrivees?date=12/02/2026
+GET https://open-pmu-api.vercel.app/api/arrivees?date=04/04/2026
 ```
 
 ```http
-GET https://open-pmu-api.vercel.app/api/arrivees?prix=Prix jules roucayrol
+GET https://open-pmu-api.vercel.app/api/arrivees?prix=Prix kerjacques
 ```
 
 ```http
-GET https://open-pmu-api.vercel.app/api/arrivees?hippo=Cagnes Sur Me
+GET https://open-pmu-api.vercel.app/api/arrivees?hippo=Vincennes
 ```
 
 
@@ -43,17 +43,17 @@ Réponse
   "error": false,
   "message": [
     {
-      "date": "12/02/2026",
+      "date": "04/04/2026",
       "type": "Attelé",
-      "montant": 49000,
-      "distance": 2925,
-      "pix": "Prix jules roucayrol",
-      "lieu": "Cagnes Sur Mer",
-      "r/c": "R1C1",
-      "partants": 15,
-      "non_partants": [5],
-      "arrivee": [14, 11, 12, 15, 10],
-      "details": "Pour 8 à 11 ans inclus (F à I), n'ayant pas gagné 380.000."
+      "montant": 120000,
+      "distance": 2700,
+      "prix": "Prix kerjacques",
+      "lieu": "Vincennes",
+      "r/c": "R1C4",
+      "partants": 13,
+      "non_partants": null,
+      "arrivee": [10, 8, 7, 3, 12],
+      "details": "Pour 6 à 11 ans inclus, ayant gagné au moins 130.000. Sont seules admises à driver les personnes ayant gagné au moins trente-cinq courses dont dix au trot attelé (en étant titulaire d'une autorisation de monter à titre professionnel)."
     }
   ]
 }
