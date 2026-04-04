@@ -3,8 +3,8 @@ Une API REST open source pour consulter les arrivées de courses PMU par date, h
 
 Une API REST gratuite et open source pour consulter les **arrivées des courses PMU**, filtrables par **date**, **hippodrome** ou **prix**.
 
-Période des données : du ```22/01/2004``` au ```13/02/2026```  
-Dernière mise à jour : ```13/02/2026```
+Période des données : du ```22/01/2004``` au ```04/04/2026```  
+Dernière mise à jour : ```04/04/2026```
 
 ## Fonctionnalités
 
