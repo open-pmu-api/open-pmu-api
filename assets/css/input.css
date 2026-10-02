@@ -12,10 +12,6 @@
     src: url(/assets/fonts/PaytoneOne-Regular.ttf) format(truetype);
 }
 
-html, body, * {
-    user-select: none !important;
-}
-
 .dmsans {
     font-family: "dmsans";
     font-weight: inherit;

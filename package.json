@@ -6,7 +6,6 @@
   "version": "1.1.0",
   "type": "module",
   "description": "Une API REST open source pour consulter les arrivées de courses PMU par date, hippodrome ou prix.",
-  "main": "clean.js",
   "dependencies": {
     "pg": "^8.22.0",
     "tailwindcss": "^3.4.19",

@@ -2,268 +2,435 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Open PMU API</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="author" content="open-pmu-api">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="mobile-web-app-capable" content="yes">
-  <link rel="icon" href="/favicon.png" />
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    <meta charset="UTF-8">
+    <title>Open PMU API — API publique de données hippiques</title>
+    <meta name="description" content="Interrogez les résultats historiques des courses PMU avec une API publique simple. Filtrez par date, hippodrome ou prix.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Open PMU API">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Open PMU API — API publique de données hippiques">
+    <meta property="og:description" content="Consultez les résultats structurés des courses PMU avec une API publique conçue pour les développeurs et les utilisateurs de données.">
+    <meta property="og:url" content="https://open-pmu-api.vercel.app/">
+    <meta name="theme-color" content="#0C0C10">
+    <link rel="canonical" href="https://open-pmu-api.vercel.app/">
+    <link rel="icon" href="/favicon.png">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        :root {
+            /* Light mode (default) */
+            --bg: #F8F8FC;
+            --bg-secondary: #F0F0F6;
+            --surface: #FFFFFF;
+            --text: #17171C;
+            --text-secondary: #62626C;
+            --border: #E1E1E8;
+            --primary: #635BFF;
+            --primary-hover: #5148E8;
+            --primary-soft: #EEEDFF;
+            --button-text: #FFFFFF;
+            --success: #16845B;
+            --danger: #C43D4B;
+            --warning: #A66B00;
 
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: #09090b;
-    }
+            color-scheme: light;
+            background: var(--bg);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
 
-    .code-block {
-      background: linear-gradient(145deg, #18181b 0%, #09090b 100%);
-      border: 1px solid #27272a;
-      box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.5);
-    }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0C0C10;
+                --bg-secondary: #13131A;
+                --surface: #181820;
+                --text: #F2F2F5;
+                --text-secondary: #A4A4B0;
+                --border: #292933;
+                --primary: #817AFF;
+                --primary-hover: #958FFF;
+                --primary-soft: #211F3A;
+                --button-text: #0C0C10;
+                --success: #35C98A;
+                --danger: #F06A76;
+                --warning: #E6AA45;
 
-    .section-card {
-      background: rgba(24, 24, 27, 0.6);
-      border: 1px solid #27272a;
-      border-radius: 1rem;
-      padding: 1.75rem;
-    }
-  </style>
+                color-scheme: dark;
+            }
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text-secondary);
+        }
+
+        .text-white {
+            color: var(--text) !important;
+        }
+
+        .text-zinc-300,
+        .text-zinc-200 {
+            color: var(--text-secondary) !important;
+        }
+
+        .text-zinc-400 {
+            color: var(--text-secondary) !important;
+        }
+
+        .text-zinc-500 {
+            color: var(--text-secondary) !important;
+            opacity: 0.85;
+        }
+
+        .text-emerald-400 {
+            color: var(--primary) !important;
+        }
+
+        .text-emerald-300,
+        .text-emerald-950 {
+            color: var(--primary) !important;
+        }
+
+        .text-sky-200 {
+            color: var(--text) !important;
+        }
+
+        .border-zinc-800,
+        .border-zinc-700 {
+            border-color: var(--border) !important;
+        }
+
+        .bg-zinc-900,
+        .bg-zinc-800 {
+            background-color: var(--bg-secondary) !important;
+        }
+
+        .code-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .section-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 3px;
+        }
+
+        /* Bouton principal */
+        .bg-emerald-400 {
+            background-color: var(--primary) !important;
+            color: var(--button-text) !important;
+        }
+
+        .bg-emerald-400:hover,
+        .hover\:bg-emerald-300:hover {
+            background-color: var(--primary-hover) !important;
+        }
+
+        /* Liens et textes hover */
+        .hover\:text-white:hover {
+            color: var(--text) !important;
+        }
+
+        .hover\:border-zinc-500:hover {
+            border-color: var(--border) !important;
+        }
+
+        /* Code / monospace accents */
+        .font-mono.text-emerald-300,
+        .text-emerald-300 {
+            color: var(--primary) !important;
+        }
+
+        /* Table */
+        thead {
+            background-color: var(--bg-secondary) !important;
+            color: var(--text-secondary) !important;
+        }
+
+        tbody {
+            border-color: var(--border) !important;
+        }
+
+        /* Status copy */
+        #copy-status {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+    </style>
 </head>
 
-<body class="text-zinc-300 antialiased">
-  <main class="relative max-w-5xl mx-auto px-6 py-14">
+<body class="antialiased">
+    <header class="border-b" style="border-color: var(--border);">
+        <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5" aria-label="Navigation principale">
+            <a href="/" class="font-semibold tracking-tight" style="color: var(--text);">Open PMU API</a>
+            <div class="flex items-center gap-5 text-sm">
+                <a href="https://github.com/open-pmu-api/open-pmu-api" target="_blank" rel="noopener noreferrer"
+                    class="hover:opacity-80" style="color: var(--text-secondary);">GitHub <span aria-hidden="true">↗</span></a>
+            </div>
+        </nav>
+    </header>
 
-    <div class="flex w-full items-center justify-between mb-2">
-      <h1
-        class="text-3xl font-bold tracking-tight bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
-        open-pmu-api
-      </h1>
-      <a href="https://github.com/open-pmu-api/open-pmu-api" target="_blank"
-        class="p-2 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600 transition-all duration-200 hover:scale-105">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 499.368" class="w-8 h-8 fill-current">
-          <path
-            d="M256.003 0C114.555 0 0 114.555 0 256.003c0 113.286 73.28 208.961 175.038 242.865 12.796 2.247 17.586-5.433 17.586-12.153 0-6.077-.309-26.225-.309-47.686-64.313 11.844-80.941-15.674-86.058-30.055-2.896-7.37-15.359-30.1-26.269-36.177-8.948-4.808-21.752-16.652-.31-16.961 20.168-.309 34.574 18.564 39.382 26.244 23.038 38.732 59.839 27.828 74.555 21.101 2.227-16.627 8.947-27.828 16.318-34.239-56.968-6.386-116.467-28.471-116.467-126.399 0-27.827 9.907-50.866 26.225-68.787-2.562-6.41-11.51-32.655 2.562-67.853 0 0 21.436-6.72 70.409 26.244 20.483-5.767 42.227-8.638 63.998-8.638 21.751 0 43.52 2.896 63.997 8.638 48.973-33.279 70.39-26.244 70.39-26.244 14.09 35.192 5.117 61.443 2.562 67.853 16.318 17.921 26.244 40.625 26.244 68.787 0 98.237-59.84 119.988-116.801 126.399 9.282 8.014 17.277 23.373 17.277 47.371 0 34.238-.309 61.751-.309 70.389 0 6.721 4.808 14.735 17.586 12.179C438.739 464.964 512 368.955 512 256.003 512 114.555 397.445 0 256.003 0z" />
-        </svg>
-      </a>
-    </div>
+    <main class="mx-auto max-w-6xl px-6">
+        <section class="grid gap-10 py-16 md:grid-cols-[1.1fr_0.9fr] md:items-center md:py-24"
+            aria-labelledby="hero-title">
+            <div>
+                <p class="mb-5 text-sm font-semibold uppercase tracking-[0.18em]" style="color: var(--primary);">
+                    API publique de données hippiques
+                </p>
+                <h1 id="hero-title" class="max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl" style="color: var(--text);">
+                    Les résultats PMU, prêts à être interrogés.
+                </h1>
+                <p class="mt-6 max-w-xl text-lg leading-8" style="color: var(--text-secondary);">
+                    Open PMU API permet aux développeurs de consulter les résultats des courses hippiques françaises et leurs détails par date, hippodrome ou prix.
+                </p>
+                <div class="mt-8 flex flex-wrap gap-3">
+                    <a href="#docs"
+                        class="rounded-md px-5 py-3 text-sm font-semibold transition-colors"
+                        style="background-color: var(--primary); color: var(--button-text);">
+                        Explorer l’API
+                    </a>
+                    <a href="https://github.com/open-pmu-api/open-pmu-api" target="_blank" rel="noopener noreferrer"
+                        class="rounded-md border px-5 py-3 text-sm font-semibold transition-colors"
+                        style="border-color: var(--border); color: var(--text);">
+                        Voir sur GitHub <span aria-hidden="true">↗</span>
+                    </a>
+                </div>
+                <p class="mt-5 text-sm" style="color: var(--text-secondary);">Un endpoint public · Réponses JSON · Aucune clé API pour les
+                    requêtes
+                    simples</p>
+            </div>
 
-    <div class="mt-12">
-      <span
-        class="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-5 py-1.5 text-sm font-semibold text-emerald-400 shadow-lg shadow-emerald-500/10">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        Open Source • Gratuit
-      </span>
-    </div>
+            <div class="section-card">
+                <div class="mb-4 flex items-center justify-between gap-4">
+                    <span class="text-sm font-medium" style="color: var(--text);">Exemple de requête</span>
+                    <span class="font-mono text-xs" style="color: var(--text-secondary);">GET</span>
+                </div>
+                <div class="code-block flex items-start justify-between gap-3 rounded-md p-4">
+                    <code id="hero-request"
+                        class="break-all font-mono text-sm leading-6" style="color: var(--primary);">https://open-pmu-api.vercel.app/api/arrivees?hippo=Deauville</code>
+                    <button type="button" data-copy="hero-request"
+                        class="shrink-0 text-xs transition-colors"
+                        style="color: var(--text-secondary);"
+                        aria-label="Copier l’exemple de requête">Copier</button>
+                </div>
+                <pre class="code-block mt-3 overflow-x-auto rounded-md p-4 text-xs leading-6" style="color: var(--text-secondary);"><code>{
+  "error": false,
+  "total": 1,
+  "message": [
+    {
+      "lieu": "Deauville",
+      "prix": "PRIX EXAMPLE",
+      "arrivee": [2, 9, 13]
+    }
+  ]
+}</code></pre>
+                <p class="mt-3 text-xs leading-5" style="color: var(--text-secondary);">Structure indicative : le nombre de courses et les
+                    champs
+                    dépendent de la requête.</p>
+            </div>
+        </section>
 
-    <div class="mt-10 space-y-6 text-[17px] leading-8 text-zinc-300 max-w-3xl">
-      <p>
-        Open PMU API est une API REST open source conçue pour permettre l’accès structuré
-        aux arrivées officielles des courses PMU. Elle offre un moyen simple, rapide et
-        fiable d’interroger des données historiques détaillées sur les courses hippiques.
-      </p>
-      <p>
-        L’API permet de consulter les <strong class="text-white font-semibold">arrivées des courses PMU</strong>
-        en les filtrant par <strong class="text-white font-semibold">date</strong>,
-        <strong class="text-white font-semibold">nom d’hippodrome</strong> ou
-        <strong class="text-white font-semibold">nom de prix</strong>.
-        Chaque réponse fournit des informations complètes incluant le type de course,
-        le montant, la distance, le nombre de partants,
-        les non-partants, l’arrivée officielle ainsi que les détails descriptifs de l’épreuve.
-      </p>
-      <p>
-        Conçue pour les développeurs, analystes de données et passionnés de courses,
-        Open PMU API facilite l’intégration des données hippiques dans des applications,
-        outils statistiques, dashboards ou projets de recherche.
-      </p>
+        <section id="docs" class="scroll-mt-8 border-t py-16" style="border-color: var(--border);" aria-labelledby="docs-title">
+            <div class="max-w-3xl">
+                <p class="text-sm font-semibold uppercase tracking-[0.16em]" style="color: var(--primary);">Documentation</p>
+                <h2 id="docs-title" class="mt-3 text-2xl font-semibold sm:text-3xl" style="color: var(--text);">Interroger les résultats
+                    des
+                    courses</h2>
+                <p class="mt-4 leading-7" style="color: var(--text-secondary);">
+                    Envoyez une requête GET avec un seul filtre. L’endpoint disponible est
+                    <code class="rounded px-1.5 py-1 font-mono text-sm" style="background: var(--bg-secondary); color: var(--text);">/api/arrivees</code>.
+                    Les résultats sont renvoyés au format JSON.
+                </p>
+            </div>
 
-      <div class="flex flex-wrap gap-6 pt-2 text-[15px]">
-        <p class="flex items-center gap-2">
-          <span class="text-zinc-500">Période des données :</span>
-          <strong class="text-white">22/01/2004 → 18/08/2026</strong>
-        </p>
-        <p class="flex items-center gap-2">
-          <span class="text-zinc-500">Dernière mise à jour :</span>
-          <strong class="text-white">19/08/2026</strong>
-        </p>
-      </div>
-    </div>
-    <section class="mt-16">
-      <h2 class="text-2xl font-semibold text-white mb-6 flex items-center gap-3">
-        <span class="w-1.5 h-6 rounded-full bg-sky-500"></span>
-        Fonctionnalités
-      </h2>
-      <div class="section-card">
-        <ul class="space-y-3 text-zinc-300">
-          <li class="flex items-center gap-3">
-            <span
-              class="flex items-center justify-center w-6 h-6 rounded-full bg-sky-500/20 text-sky-400 text-xs font-bold">1</span>
-            Recherche par date
-          </li>
-          <li class="flex items-center gap-3">
-            <span
-              class="flex items-center justify-center w-6 h-6 rounded-full bg-sky-500/20 text-sky-400 text-xs font-bold">2</span>
-            Recherche par hippodrome
-          </li>
-          <li class="flex items-center gap-3">
-            <span
-              class="flex items-center justify-center w-6 h-6 rounded-full bg-sky-500/20 text-sky-400 text-xs font-bold">3</span>
-            Recherche par prix
-          </li>
-        </ul>
-      </div>
-    </section>
-    <section class="mt-16">
-      <h2 class="text-2xl font-semibold text-white mb-6 flex items-center gap-3">
-        <span class="w-1.5 h-6 rounded-full bg-emerald-500"></span>
-        Utilisation
-      </h2>
+            <div class="mt-8 overflow-x-auto rounded-lg border" style="border-color: var(--border);">
+                <table class="w-full min-w-[34rem] text-left text-sm">
+                    <caption class="sr-only">Paramètres de requête disponibles</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="px-4 py-3 font-medium">Paramètre</th>
+                            <th scope="col" class="px-4 py-3 font-medium">Description</th>
+                            <th scope="col" class="px-4 py-3 font-medium">Exemple</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y" style="border-color: var(--border);">
+                        <tr>
+                            <th scope="row" class="px-4 py-3 font-mono font-medium" style="color: var(--primary);">date</th>
+                            <td class="px-4 py-3" style="color: var(--text-secondary);">Date de la course (MM/JJ/AAAA)</td>
+                            <td class="px-4 py-3 font-mono" style="color: var(--text);">09/29/2026</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="px-4 py-3 font-mono font-medium" style="color: var(--primary);">hippo</th>
+                            <td class="px-4 py-3" style="color: var(--text-secondary);">Nom de l’hippodrome</td>
+                            <td class="px-4 py-3 font-mono" style="color: var(--text);">Chantilly</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="px-4 py-3 font-mono font-medium" style="color: var(--primary);">prix</th>
+                            <td class="px-4 py-3" style="color: var(--text-secondary);">Nom du prix</td>
+                            <td class="px-4 py-3 font-mono" style="color: var(--text);">PRIX DE LA CHAMBRE DU DUC</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-3 text-sm" style="color: var(--text-secondary);">Utilisez un seul filtre par requête. La recherche par prix ou
+                hippodrome
+                peut renvoyer plusieurs courses.</p>
 
-      <div class="space-y-4">
-        <pre
-          class="code-block overflow-x-auto rounded-xl p-5 text-emerald-400 text-[14px]"><code>GET https://open-pmu-api.vercel.app/api/arrivees</code></pre>
+            <h3 class="mt-10 text-lg font-semibold" style="color: var(--text);">Exemples de requêtes</h3>
+            <div class="mt-4 space-y-3">
+                <div class="code-block flex items-center justify-between gap-4 rounded-md p-4">
+                    <code id="request-date"
+                        class="break-all font-mono text-sm" style="color: var(--primary);">GET "https://open-pmu-api.vercel.app/api/arrivees?date=09%2F29%2F2026"</code>
+                    <button type="button" data-copy="request-date"
+                        class="shrink-0 text-xs"
+                        style="color: var(--text-secondary);"
+                        aria-label="Copier la requête par date">Copier</button>
+                </div>
+                <div class="code-block flex items-center justify-between gap-4 rounded-md p-4">
+                    <code id="request-hippo"
+                        class="break-all font-mono text-sm" style="color: var(--primary);">GET "https://open-pmu-api.vercel.app/api/arrivees?hippo=Chantilly"</code>
+                    <button type="button" data-copy="request-hippo"
+                        class="shrink-0 text-xs"
+                        style="color: var(--text-secondary);"
+                        aria-label="Copier la requête par hippodrome">Copier</button>
+                </div>
+                <div class="code-block flex items-center justify-between gap-4 rounded-md p-4">
+                    <code id="request-prix"
+                        class="break-all font-mono text-sm" style="color: var(--primary);">GET "https://open-pmu-api.vercel.app/api/arrivees?prix=PRIX%20DE%20LA%20CHAMBRE%20DU%20DUC"</code>
+                    <button type="button" data-copy="request-prix"
+                        class="shrink-0 text-xs"
+                        style="color: var(--text-secondary);"
+                        aria-label="Copier la requête par prix">Copier</button>
+                </div>
+            </div>
+            <p id="copy-status" class="min-h-5 fixed hidden px-4 py-2 rounded bottom-10 left-4 text-sm" role="status" aria-live="polite"></p>
 
-        <pre class="code-block overflow-x-auto rounded-xl p-5 text-emerald-400 text-[14px]"><code>date=DAY/MONTH/YEAR
-prix=PRIX
-hippo=HIPPODROME</code></pre>
-      </div>
-
-      <h3 class="mt-12 mb-5 text-lg font-medium text-white">Exemples d'appel</h3>
-      <div class="space-y-4">
-        <pre
-          class="code-block overflow-x-auto rounded-xl p-5 text-emerald-400 text-[14px]"><code>GET https://open-pmu-api.vercel.app/api/arrivees?date=08/18/2026</code></pre>
-        <pre
-          class="code-block overflow-x-auto rounded-xl p-5 text-emerald-400 text-[14px]"><code>GET https://open-pmu-api.vercel.app/api/arrivees?prix=PRIX DU VIEUX BASSIN</code></pre>
-        <pre
-          class="code-block overflow-x-auto rounded-xl p-5 text-emerald-400 text-[14px]"><code>GET https://open-pmu-api.vercel.app/api/arrivees?hippo=Deauville</code></pre>
-      </div>
-
-      <h3 class="mt-12 mb-5 text-lg font-medium text-white">Réponse</h3>
-      <pre class="code-block overflow-x-auto rounded-xl p-5 text-sky-400 text-[13px] leading-relaxed"><code>{
+            <h3 class="mt-10 text-lg font-semibold" style="color: var(--text);">Format de la réponse</h3>
+            <p class="mt-3 max-w-3xl leading-7" style="color: var(--text-secondary);">
+                <code class="font-mono" style="color: var(--text);">error</code> indique si la recherche a échoué,
+                <code class="font-mono" style="color: var(--text);">total</code> correspond au nombre de courses renvoyées, et
+                <code class="font-mono" style="color: var(--text);">message</code> contient les courses ou un message explicatif.
+                Chaque course peut inclure son arrivée et les détails disponibles sur les chevaux.
+            </p>
+            <div class="code-block mt-4 flex items-start justify-between gap-4 rounded-md p-4">
+                <pre class="overflow-x-auto text-sm leading-6" style="color: var(--text);"><code id="response-example">{
     "error": false,
+    "total": 1,
     "message": [
         {
             "type": "Plat",
             "montant": 50900,
-            "distance": 2500,
-            "prix": "PRIX DU VIEUX BASSIN",
-            "lieu": "Deauville",
-            "heure_depart": "18:30:00",
-            "details": "PLAT, 2500 metres , Corde a DROITE 50.900- HANDICAP DIVISE Pour chevaux entiers, hongres et juments de 4 ans et au-dessus",
-            "partants": 15,
-            "non_partants": [ 1 ],
-            "arrivee": [ 2, 9, 13, 14, 15, 8, 12 ],
-            "r/c": "R1/C8",
+            "distance": 1900,
+            "prix": "PRIX DE LA CHAMBRE DU DUC",
+            "lieu": "Chantilly",
+            "heure_depart": "13:55:00",
+            "details": "PLAT, 1900 metres , PSF , Corde a DROITE 50.900- HANDICAP DIVISE Pour chevaux entiers, hongres et juments de 4 ans et au-dessus",
+            "partants": 16,
+            "non_partants": [0],
+            "arrivee": [1, 9, 15, 2, 4],
+            "r/c": "R1/C1",
             "arrivee_details": {
-                "2": {
-                    "nom_cheval": "MISS OF CHANGE",
-                    "sexe": "F",
-                    "annee_de_naissance": 2022,
-                    "nom_jockey": "LEMAITRE A.",
-                    "nom_entraineur": "NIESLANIK M.",
-                    "musique": "5p 6p 6p 5p 9p 10p 5p 6p 6p (25) 7p Dp 5p ",
-                    "cotes": [ "23.0", "25.0", "31.0" ],
-                    "gains": 84773,
-                    "corde": 16,
-                    "discipline": "Plat",
-                    "distance": 2500
-                },
-                "8": {
-                    "nom_cheval": "GOLDEN BLUSH",
-                    "sexe": "F",
-                    "annee_de_naissance": 2022,
-                    "nom_jockey": "PICCONE T.",
-                    "nom_entraineur": "ESCUDER C.",
-                    "musique": "8p 1p 1p 10p 1p 1p 3p 7p 10p 6p 3p 7p ",
-                    "cotes": [ "27.0", "27.0", "33.0" ],
-                    "gains": 63084,
-                    "corde": 4,
-                    "discipline": "Plat",
-                    "distance": 2500
-                },
-                "9": {
-                    "nom_cheval": "PRINCESSE D'AMOUR",
-                    "sexe": "F",
+                "1": {
+                    "nom_cheval": "ANSSIO",
+                    "sexe": "H",
                     "annee_de_naissance": 2022,
                     "nom_jockey": "LECOEUVRE C.",
-                    "nom_entraineur": "DUBOIS J.PH.",
-                    "musique": "1p 5p 1p 12p (25) 9p 2p 5p 1p 3p 6p 3p 5p ",
-                    "cotes": [ "6.5", "5.5", "4.4" ],
-                    "gains": 80930,
-                    "corde": 1,
+                    "nom_entraineur": "BELLANGER (S) N.",
+                    "musique": "2p 2p 3p 5p (25) 1p 2p 1p 5p 11p 1p 1p 4p ",
+                    "cotes": [ "9.8", "8.5", "6.1" ],
+                    "gains": 78504,
+                    "corde": 15,
                     "discipline": "Plat",
-                    "distance": 2500
+                    "distance": 1900
                 },
-                "12": {
-                    "nom_cheval": "MISTER GATZ",
-                    "sexe": "H",
-                    "annee_de_naissance": 2021,
-                    "nom_jockey": "GRANDIN MAR.",
-                    "nom_entraineur": "NIGGE (S) S.",
-                    "musique": "6p 2p 4p 10p (25) 7p 10p 10p 6p 4p 5p (24) 4p 2p ",
-                    "cotes": [ "14.0", "10.0", "11.0" ],
-                    "gains": 75697,
-                    "corde": 3,
-                    "discipline": "Plat",
-                    "distance": 2500
-                },
-                "13": {
-                    "nom_cheval": "GOLD PLAYER",
-                    "sexe": "H",
-                    "annee_de_naissance": 2019,
-                    "nom_jockey": "BOISSEAU L.",
-                    "nom_entraineur": "FORESI F.",
-                    "musique": "13p 8p 11p 14p 1p 6p 7p (25) 4p 1p 3p 5p 14p ",
-                    "cotes": [ "31.0", "44.0", "58.0" ],
-                    "gains": 156320,
-                    "corde": 5,
-                    "discipline": "Plat",
-                    "distance": 2500
-                },
-                "14": {
-                    "nom_cheval": "BRITANIA",
-                    "sexe": "F",
-                    "annee_de_naissance": 2022,
-                    "nom_jockey": "MENDIZABAL I.",
-                    "nom_entraineur": "ROHAUT F.",
-                    "musique": "8p 11p 5p 5p (25) 3p 2p 1p 2p 1p 3p 2p 2p ",
-                    "cotes": [ "18.0", "16.0", "19.0" ],
-                    "gains": 66508,
-                    "corde": 12,
-                    "discipline": "Plat",
-                    "distance": 2500
-                },
-                "15": {
-                    "nom_cheval": "JAYCLE DE GREE",
-                    "sexe": "H",
-                    "annee_de_naissance": 2021,
-                    "nom_jockey": "GROSBOIS CHR.",
-                    "nom_entraineur": "AUDOUIN B.",
-                    "musique": "1p 4p 2p 3p 6p 1p 4p (25) 1p 2p 1p 2p 2p ",
-                    "cotes": [ "16.0", "13.0", "8.4" ],
-                    "gains": 63521,
-                    "corde": 11,
-                    "discipline": "Plat",
-                    "distance": 2500
-                }
-            },
-            "date": "2026-08-18T00:00:00.000Z"
+                ...
+              },
+              "date": "2026-09-29T00:00:00.000Z"
         }
-    ]
+      ]
 }</code></pre>
-    </section>
+                <button type="button" data-copy="response-example"
+                    class="shrink-0 text-xs"
+                    style="color: var(--text-secondary);"
+                    aria-label="Copier l’exemple de réponse JSON">Copier</button>
+            </div>
+            <p class="mt-3 text-sm leading-6" style="color: var(--text-secondary);">Les champs présentés sont indicatifs et varient selon la
+                course.
+                En cas d’échec, <code class="font-mono">error: true</code> est accompagné d’un message explicatif.</p>
+        </section>
 
-    <footer class="mt-24 pt-10 border-t border-zinc-800 text-center">
-      <p class="text-sm text-zinc-500">
-        © 2026 <span class="font-semibold text-zinc-300">Open PMU API</span>
-      </p>
-      <p class="text-sm text-zinc-600 mt-1">Tous droits réservés</p>
-    </footer>
+        <section class="border-t py-16" style="border-color: var(--border);" aria-labelledby="data-title">
+            <p class="text-sm font-semibold uppercase tracking-[0.16em]" style="color: var(--primary);">Les données</p>
+            <h2 id="data-title" class="mt-3 text-2xl font-semibold sm:text-3xl" style="color: var(--text);">Courses et partants dans une
+                même
+                réponse</h2>
+            <p class="mt-4 max-w-3xl leading-7" style="color: var(--text-secondary);">
+                L’API interroge une base de données de courses hippiques. Selon la course et les informations
+                disponibles,
+                les résultats peuvent inclure la date, l’hippodrome, le prix, la discipline, la distance, les partants
+                et
+                non-partants, l’arrivée officielle et les détails des chevaux : noms, jockeys, entraîneurs, cotes, gains
+                et
+                musique.
+            </p>
+        </section>
 
-  </main>
+        <section class="border-t py-12" style="border-color: var(--border);" aria-labelledby="limits-title">
+            <h2 id="limits-title" class="text-lg font-semibold" style="color: var(--text);">Disponibilité et utilisation responsable</h2>
+            <p class="mt-3 max-w-3xl text-sm leading-6" style="color: var(--text-secondary);">
+                Cet endpoint public est accessible sans clé API pour les requêtes simples. Aucune limite de débit,
+                garantie de
+                disponibilité ou pagination n’est publiée ; la disponibilité et la taille des réponses peuvent varier.
+                Pour
+                un usage régulier ou en volume, demandez l’accès à la base plutôt que de répéter des requêtes larges.
+            </p>
+        </section>
+
+        <footer
+            class="flex flex-col gap-4 border-t py-8 text-sm sm:flex-row sm:items-center sm:justify-between"
+            style="border-color: var(--border); color: var(--text-secondary);">
+            <p>© 2026 Open PMU API</p>
+            <div class="flex flex-wrap gap-5">
+                <a href="https://github.com/open-pmu-api/open-pmu-api" target="_blank" rel="noopener noreferrer"
+                    class="hover:opacity-80" style="color: var(--text-secondary);">GitHub</a>
+                <a href="https://github.com/open-pmu-api/open-pmu-api/blob/main/README.md" target="_blank"
+                    rel="noopener noreferrer" class="hover:opacity-80" style="color: var(--text-secondary);">README</a>
+                <a href="#docs" class="hover:opacity-80" style="color: var(--text-secondary);">Documentation API</a>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        document.querySelectorAll("[data-copy]").forEach((button) => {
+            button.addEventListener("click", async () => {
+                const text = document.getElementById(button.dataset.copy)?.textContent;
+                const status = document.getElementById("copy-status");
+
+                if (!text || !status) return;
+
+                try {
+                    await navigator.clipboard.writeText(text.trim().replace('GET', '').trim());
+                    status.classList.remove('hidden');
+                    status.textContent = "Exemple copié.";
+                } catch (error) {
+                    status.classList.remove('hidden');
+                    status.textContent = "Copie automatique impossible. Sélectionnez puis copiez l’exemple manuellement.";
+                }
+
+                setTimeout(() => {
+                    status.classList.add('hidden');
+                    status.textContent = '';
+                }, 2000);
+            });
+        });
+    </script>
 </body>
 
 </html>
