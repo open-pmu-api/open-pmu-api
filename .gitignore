@@ -145,5 +145,4 @@ dist
 racing-horse-data*
 classify*
 MAP.MAP
-*.json
 entry.py
