@@ -12,7 +12,6 @@ export default async (req, res) => {
 		const date = req.query.date;
 
 		let _resp;
-		let param = null;
 
 		if (prix) {
 			_resp = await getData({ prix });
@@ -27,6 +26,7 @@ export default async (req, res) => {
 		res.setHeader('Content-Type', 'application/json');
 		res.status(200).send({
 			error: !_resp[0],
+			total: _resp[0] ? _resp[1].length : 0,
 			message: _resp[1],
 		});
 
