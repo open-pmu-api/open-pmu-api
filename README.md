@@ -2,12 +2,13 @@
 
 Open PMU API est une API publique permettant d’interroger des résultats structurés de courses hippiques et les données associées.
 
-**Site web :** [open-pmu-api.vercel.app](https://open-pmu-api.vercel.app/) · **Endpoint :** `GET https://open-pmu-api.vercel.app/api/arrivees`
+**Site web :** [open-pmu-api.vercel.app](https://open-pmu-api.vercel.app/)
+**Endpoint :** `GET https://open-pmu-api.vercel.app/api/arrivees`
 
 ## Données
 
 * **Période des données :** 22/01/2004 au 29/09/2026
-* **Dernière mise à jour :** 02/10/2026
+* **Dernière mise à jour :** 03/10/2026
 
 ## Utiliser l’API
 
