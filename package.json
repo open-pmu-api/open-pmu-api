@@ -1,28 +1,32 @@
 {
-  "devDependencies": {
-    "@types/node": "^22.15.17"
-  },
-  "name": "open-pmu-api",
-  "version": "1.1.0",
-  "type": "module",
-  "description": "Une API REST open source pour consulter les arrivées de courses PMU par date, hippodrome ou prix.",
-  "dependencies": {
-    "pg": "^8.22.0",
-    "tailwindcss": "^3.4.19",
-    "undici-types": "^6.21.0"
-  },
-  "scripts": {
-    "dev:css": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/style.css --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nanaelie/open-pmu-api.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nanaelie/open-pmu-api/issues"
-  },
-  "homepage": "https://github.com/nanaelie/open-pmu-api#readme"
+	"devDependencies": {
+		"@types/node": "^22.20.5",
+		"@types/pg": "^8.23.1",
+		"tsx": "^4.23.15",
+		"typescript": "^7.0.2"
+	},
+	"name": "open-pmu-api",
+	"version": "1.1.0",
+	"type": "module",
+	"description": "Une API REST open source pour consulter les arrivées de courses PMU par date, hippodrome ou prix.",
+	"dependencies": {
+		"pg": "^8.23.1",
+		"tailwindcss": "^4.3.3",
+		"undici-types": "^6.21.0"
+	},
+	"scripts": {
+		"dev:css": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/style.css --watch",
+		"test": "node --env-file=.env --import=tsx --test test/**/*.test.ts"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nanaelie/open-pmu-api.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/nanaelie/open-pmu-api/issues"
+	},
+	"homepage": "https://github.com/nanaelie/open-pmu-api#readme"
 }

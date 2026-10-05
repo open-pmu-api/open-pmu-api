@@ -149,3 +149,4 @@ entry.py
 
 .vscode/
 certs/
+.env*
