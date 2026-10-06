@@ -222,6 +222,9 @@
                 </div>
                 <pre class="code-block mt-3 overflow-x-auto rounded-md p-4 text-xs leading-6" style="color: var(--text-secondary);"><code>{
   "error": false,
+  "params": {
+    "date": "09/29/2026"
+  },
   "total": 1,
   "message": [
     {
@@ -323,6 +326,9 @@
                 <pre class="overflow-x-auto text-sm leading-6" style="color: var(--text);"><code id="response-example">{
     "error": false,
     "total": 1,
+    "params": {
+        "date": "09/29/2026"
+    },
     "message": [
         {
             "type": "Plat",
@@ -333,9 +339,10 @@
             "heure_depart": "13:55:00",
             "details": "PLAT, 1900 metres , PSF , Corde a DROITE 50.900- HANDICAP DIVISE Pour chevaux entiers, hongres et juments de 4 ans et au-dessus",
             "partants": 16,
-            "non_partants": [0],
+            "non_partants": [],
             "arrivee": [1, 9, 15, 2, 4],
             "r/c": "R1/C1",
+            "date": "2026-09-29",
             "arrivee_details": {
                 "1": {
                     "nom_cheval": "ANSSIO",
@@ -343,18 +350,17 @@
                     "annee_de_naissance": 2022,
                     "nom_jockey": "LECOEUVRE C.",
                     "nom_entraineur": "BELLANGER (S) N.",
-                    "musique": "2p 2p 3p 5p (25) 1p 2p 1p 5p 11p 1p 1p 4p ",
-                    "cotes": [ "9.8", "8.5", "6.1" ],
+                    "poids_cheval": 600,
+                    "musique": "2p 2p 3p 5p (25) 1p 2p 1p 5p 11p 1p 1p 4p",
+                    "cotes": [9.8, 8.5, 6.1],
                     "gains": 78504,
-                    "corde": 15,
-                    "discipline": "Plat",
-                    "distance": 1900
+                    ...
                 },
                 ...
-              },
-              "date": "2026-09-29T00:00:00.000Z"
+            }
+            ...
         }
-      ]
+    ]
 }</code></pre>
                 <button type="button" data-copy="response-example"
                     class="shrink-0 text-xs"
