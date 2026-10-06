@@ -9,7 +9,7 @@ Open PMU API est une API REST publique permettant d'interroger des résultats st
 ## Données
 
 * **Période des données :** 22/01/2004 au 29/09/2026
-* **Dernière mise à jour :** 03/10/2026
+* **Dernière mise à jour :** 06/10/2026
 
 Les données couvrent les résultats de courses disponibles dans la base associée à l'API.
 
