@@ -13,6 +13,16 @@ Open PMU API est une API REST publique permettant d'interroger des résultats st
 
 Les données couvrent les résultats de courses disponibles dans la base associée à l'API.
 
+## Dataset historique complet
+
+L'API publique permet de consulter des résultats à l'aide de requêtes ciblées. Pour les analyses en volume, un dataset historique séparé est également disponible à l'achat.
+
+**[Accéder au dataset PMU 2004–2026 — 35 USD](https://naedev.gumroad.com/l/pmu-dataset)**
+
+Le produit comprend des fichiers JSON organisés par année, type de course et hippodrome, ainsi qu'un fichier README décrivant la structure des données et un exemple de démarrage en Python.
+
+Le dataset téléchargeable est un produit distinct : il n'est pas hébergé dans ce dépôt GitHub et n'est pas distribué directement par l'API publique. Consultez sa page de vente pour les détails, les conditions d'utilisation et les informations sur la couverture des données.
+
 ## Utiliser l'API
 
 L'API accepte des requêtes `GET` avec l'un des paramètres suivants :
