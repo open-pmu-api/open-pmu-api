@@ -17,7 +17,7 @@ Les données couvrent les résultats de courses disponibles dans la base associ�
 
 L'API publique permet de consulter des résultats à l'aide de requêtes ciblées. Pour les analyses en volume, un dataset historique séparé est également disponible à l'achat.
 
-**[Accéder au dataset PMU 2004–2026 — 35 USD](https://naedev.gumroad.com/l/pmu-dataset)**
+**[Accéder au dataset PMU 2004–2026](https://naedev.gumroad.com/l/pmu-dataset)**
 
 Le produit comprend des fichiers JSON organisés par année, type de course et hippodrome, ainsi qu'un fichier README décrivant la structure des données et un exemple de démarrage en Python.
 
