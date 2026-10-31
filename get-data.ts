@@ -9,7 +9,6 @@ function formatDate(date: string): string | null {
 
 	const [mois, jour, annee] = parts;
 
-	// L'année doit avoir 2 ou 4 chiffres (3 chiffres donnaient une année absurde)
 	if (!/^\d{1,2}$/.test(mois) || !/^\d{1,2}$/.test(jour) || !/^(\d{2}|\d{4})$/.test(annee)) {
 		return null;
 	}
@@ -159,7 +158,6 @@ function getDateString(value: unknown): string | null {
 	return string ? string.slice(0, 10) : null;
 }
 
-// Cote effective d'un cheval = sa cote la plus basse (utilisée pour le favori et le rang)
 function getEffectiveCote(horse: HorseResult): number | null {
 	return getMin(getValidCotes(horse.cotes));
 }
@@ -170,8 +168,6 @@ function getEffectiveCotes(horses: HorseResult[]): number[] {
 		.filter((cote): cote is number => cote !== null);
 }
 
-// Moyenne / médiane calculées PAR CHEVAL puis agrégées, pour que chaque cheval
-// pèse pareil quel que soit son nombre de cotes
 function getHorseAverages(horses: HorseResult[]): number[] {
 	return horses
 		.map(horse => getAverage(getValidCotes(horse.cotes)))
@@ -503,6 +499,13 @@ export default async function getData({ prix, hippo, date }: GetDataParams): Pro
 				races.non_partants,
 				races.arrivee,
 				races.r_c,
+				races.commentaire_general,
+				races.partants_details,
+				races.pronostics_presse,
+				races.aptitudes,
+				races.classements,
+				races.entraineurs_en_forme::TEXT[],
+				races.jockeys_en_forme::TEXT[],
 
 				race_results.nom_cheval,
 				race_results.sexe,
@@ -569,6 +572,14 @@ export default async function getData({ prix, hippo, date }: GetDataParams): Pro
 						ecart_cote_gagnant: null,
 						ecart_cote_favori: null,
 					},
+
+					commentaire_general: cleanString(row.commentaire_general),
+					partants_details: row.partants_details,
+					pronostics_presse: row.pronostics_presse,
+					aptitudes: row.aptitudes,
+					classements: row.classements,
+					entraineurs_en_forme: row.entraineurs_en_forme,
+					jockeys_en_forme: row.entraineurs_en_forme,
 				};
 			}
 

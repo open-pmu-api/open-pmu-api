@@ -2,6 +2,7 @@ export interface GetDataParams {
 	prix?: string;
 	hippo?: string;
 	date?: string;
+	type?: string;
 }
 
 export interface HorseHistory {
@@ -111,6 +112,13 @@ export interface Race {
 		ecart_cote_gagnant: number | null;
 		ecart_cote_favori: number | null;
 	};
+	commentaire_general: string | null;
+	partants_details: Record<string, unknown> | null,
+	pronostics_presse: Record<string, unknown> | null,
+	aptitudes: Record<string, unknown> | null,
+	classements: Record<string, unknown> | null,
+	entraineurs_en_forme: string[],
+	jockeys_en_forme: string[],
 }
 
 export type GetDataResult = {
