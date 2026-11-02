@@ -485,6 +485,13 @@ export default async function getData({ prix, hippo, date }: GetDataParams): Pro
 
 		const result = await db.query(
 			`
+			WITH limited_races AS (
+				SELECT *
+				FROM races
+				WHERE ${key} ${operator} $1
+				ORDER BY date DESC, heure_depart ASC
+				LIMIT 100
+			)
 			SELECT
 				races.id,
 				races.type,
@@ -502,10 +509,10 @@ export default async function getData({ prix, hippo, date }: GetDataParams): Pro
 				races.commentaire_general,
 				races.partants_details,
 				races.pronostics_presse,
-				races.aptitudes,
-				races.classements,
-				races.entraineurs_en_forme::TEXT[],
-				races.jockeys_en_forme::TEXT[],
+				traces.aptitudes,
+				traces.classements,
+				traces.entraineurs_en_forme::TEXT[],
+				traces.jockeys_en_forme::TEXT[],
 
 				race_results.nom_cheval,
 				race_results.sexe,
@@ -521,9 +528,8 @@ export default async function getData({ prix, hippo, date }: GetDataParams): Pro
 				race_results.distance AS horse_distance,
 				race_results.numero,
 				race_results.position
-			FROM races
+			FROM limited_races AS races
 			LEFT JOIN race_results ON race_results.race_id = races.id
-			WHERE ${key} ${operator} $1
 			ORDER BY races.date DESC, races.heure_depart ASC, race_results.numero ASC
 			`,
 			[paramValue]
