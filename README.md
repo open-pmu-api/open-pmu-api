@@ -8,8 +8,8 @@ Open PMU API est une API REST publique permettant d'interroger des résultats st
 
 ## Données
 
-* **Période des données :** 22/01/2004 au 29/09/2026
-* **Dernière mise à jour :** 02/11/2026
+* **Période des données :** 22/01/2004 au 31/10/2026
+* **Dernière mise à jour :** 04/11/2026
 
 Les données couvrent les résultats de courses disponibles dans la base associée à l'API.
 
@@ -29,14 +29,14 @@ L'API accepte des requêtes `GET` avec l'un des paramètres suivants :
 
 | Paramètre | Description                              | Exemple                     |
 | --------- | ---------------------------------------- | --------------------------- |
-| `date`    | Date de la course au format `MM/DD/YYYY` | `09/29/2026`                |
+| `date`    | Date de la course au format `MM/DD/YYYY` | `10/31/2026`                |
 | `hippo`   | Nom de l'hippodrome                      | `Chantilly`                 |
 | `prix`    | Nom du prix                              | `PRIX DE LA CHAMBRE DU DUC` |
 
 ### Par date
 
 ```sh
-GET https://open-pmu-api.vercel.app/api/arrivees?date=09%2F29%2F2026
+GET https://open-pmu-api.vercel.app/api/arrivees?date=10%2F31%2F2026
 ```
 
 ### Par hippodrome
