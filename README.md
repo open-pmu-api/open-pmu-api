@@ -194,61 +194,6 @@ Une recherche par hippodrome ou par prix peut renvoyer plusieurs courses et la t
 
 Les requêtes simples sont accessibles sans clé API. Cela ne constitue toutefois pas une garantie d'utilisation illimitée ni un engagement de disponibilité.
 
-## Installation
-
-Clonez le dépôt et installez les dépendances :
-
-```sh
-git clone https://github.com/open-pmu-api/open-pmu-api.git
-cd open-pmu-api
-npm ci
-```
-
-Configurez ensuite `DB_URL` dans votre environnement local ou de déploiement avec une URL de connexion PostgreSQL.
-
-La connexion à PostgreSQL utilise TLS avec vérification du certificat. Le serveur PostgreSQL utilisé doit donc fournir un certificat reconnu par l'environnement Node.js de l'instance.
-
-Ne commitez jamais vos identifiants de connexion et ne les incluez pas dans le code client.
-
-## Développement local
-
-L'API est conçue pour être exécutée comme une fonction serverless Vercel.
-
-Pour lancer le projet localement :
-
-```sh
-vercel dev
-```
-
-Pour déployer votre propre instance :
-
-```sh
-vercel
-```
-
-Les données et le schéma PostgreSQL ne sont pas inclus dans le dépôt public. Votre instance PostgreSQL doit fournir les tables et les données attendues par l'API.
-
-## Tests
-
-Le projet utilise les tests natifs de Node.js avec `tsx`.
-
-Lancer la suite de tests :
-
-```sh
-npm test
-```
-
-La suite actuelle comprend 16 tests couvrant notamment :
-
-* la récupération des courses ;
-* l'analyse des chevaux ;
-* les statistiques de course ;
-* l'historique et la forme des chevaux ;
-* les non-partants ;
-* l'analyse de la musique ;
-* les incidents ;
-* les statistiques de performance.
-
 ## Licence
 
 Le code de l'API publique est distribué sous licence [MIT](./LICENSE).
