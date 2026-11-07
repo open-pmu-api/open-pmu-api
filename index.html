@@ -48,6 +48,13 @@
     </script>
     <link rel="icon" href="/favicon.png">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "@vercel/speed-insights": "https://esm.sh/@vercel/speed-insights@2.1.0"
+            }
+        }
+    </script>
     <style>
         :root {
             /* Light mode (default) */
@@ -567,6 +574,7 @@
             });
         });
     </script>
+    <script type="module" src="/assets/js/speed-insights.js"></script>
 </body>
 
 </html>
