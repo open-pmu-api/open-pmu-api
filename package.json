@@ -12,7 +12,8 @@
 	"dependencies": {
 		"pg": "^8.23.1",
 		"tailwindcss": "^4.3.3",
-		"undici-types": "^6.21.0"
+		"undici-types": "^6.21.0",
+		"@vercel/speed-insights": "^2.1.0"
 	},
 	"scripts": {
 		"dev:css": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/style.css --watch",
